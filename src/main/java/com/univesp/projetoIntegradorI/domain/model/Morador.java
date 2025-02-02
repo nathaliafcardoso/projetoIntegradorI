@@ -16,4 +16,6 @@ public class Morador {
         private String numeroCasa;
         private String telefone;
         private String email;
+        private String horariosPresenca; // Armazena os horários de presença em formato JSON ou texto
+        private String observacoes; // Observações de quem não pode entrar na casa
 }
