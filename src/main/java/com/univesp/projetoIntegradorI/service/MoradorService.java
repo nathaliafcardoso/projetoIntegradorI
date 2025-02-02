@@ -1,4 +1,4 @@
-package com.univesp.projetoIntegradorI.application.service;
+package com.univesp.projetoIntegradorI.service;
 
 import com.univesp.projetoIntegradorI.domain.model.AgendamentoSalao;
 import com.univesp.projetoIntegradorI.domain.model.Morador;
@@ -15,6 +15,7 @@ public class MoradorService {
 
     @Autowired
     private MoradorRepository moradorRepository;
+
     @Autowired
     private AgendamentoSalaoRepository agendamentoSalaoRepository;
 
@@ -41,5 +42,17 @@ public class MoradorService {
         agendamento.setDataHoraFim(dataHoraFim);
         agendamento.setMotivo(motivo);
         return agendamentoSalaoRepository.save(agendamento);
+    }
+
+    public List<Morador> findAll() {
+        return moradorRepository.findAll();
+    }
+
+    public Morador findById(Long id) {
+        return moradorRepository.findById(id).orElseThrow(() -> new RuntimeException("Morador não encontrado"));
+    }
+
+    public void deleteById(Long id) {
+        moradorRepository.deleteById(id);
     }
 }

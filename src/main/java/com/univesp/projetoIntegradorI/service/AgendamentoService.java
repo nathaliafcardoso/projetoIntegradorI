@@ -1,4 +1,4 @@
-package com.univesp.projetoIntegradorI.application.service;
+package com.univesp.projetoIntegradorI.service;
 
 import com.univesp.projetoIntegradorI.domain.model.AgendamentoSalao;
 import com.univesp.projetoIntegradorI.domain.repository.AgendamentoSalaoRepository;
