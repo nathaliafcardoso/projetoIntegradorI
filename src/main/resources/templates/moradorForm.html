@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Formulário de Morador</title>
+</head>
+<body>
+    <form action="/api/moradores/salvar" method="post">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required>
+
+        <label for="numeroCasa">Número da Casa:</label>
+        <input type="text" id="numeroCasa" name="numeroCasa" required>
+
+        <label for="horariosPresenca">Horários de Presença (Formato JSON ou Texto):</label>
+        <input type="text" id="horariosPresenca" name="horariosPresenca" required>
+
+        <label for="observacoes">Observações (Quem não deve entrar):</label>
+        <textarea id="observacoes" name="observacoes" required></textarea>
+
+        <button type="submit">Salvar</button>
+    </form>
+</body>
+</html>

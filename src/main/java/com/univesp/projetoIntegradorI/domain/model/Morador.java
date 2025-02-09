@@ -1,9 +1,9 @@
 package com.univesp.projetoIntegradorI.domain.model;
 
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-
+import jakarta.persistence.OneToMany;
+import java.util.List;
 
 @Entity
 public class Morador {
@@ -14,8 +14,11 @@ public class Morador {
         private String numeroCasa;
         private String telefone;
         private String email;
-        private String horariosPresenca; // Armazena os horários de presença em formato JSON ou texto
-        private String observacoes; // Observações de quem não pode entrar na casa
+        private String horariosPresenca;
+        private String observacoes;
+
+        @OneToMany
+        private List<Morador> moradoresDaCasa;
 
         public Long getId() {
                 return id;
@@ -46,7 +49,7 @@ public class Morador {
         }
 
         public void setTelefone(String telefone) {
-                this.telefone = telefone;
+                this.telefone = removeSpecialCharacters(telefone);
         }
 
         public String getEmail() {
@@ -71,5 +74,17 @@ public class Morador {
 
         public void setObservacoes(String observacoes) {
                 this.observacoes = observacoes;
+        }
+
+        public List<Morador> getMoradoresDaCasa() {
+                return moradoresDaCasa;
+        }
+
+        public void setMoradoresDaCasa(List<Morador> moradoresDaCasa) {
+                this.moradoresDaCasa = moradoresDaCasa;
+        }
+
+        private String removeSpecialCharacters(String input) {
+                return input != null ? input.replaceAll("[^a-zA-Z0-9]", "") : null;
         }
 }

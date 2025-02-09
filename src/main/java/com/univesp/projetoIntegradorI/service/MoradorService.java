@@ -1,58 +1,62 @@
 package com.univesp.projetoIntegradorI.service;
 
-import com.univesp.projetoIntegradorI.domain.model.AgendamentoSalao;
 import com.univesp.projetoIntegradorI.domain.model.Morador;
-import com.univesp.projetoIntegradorI.domain.repository.AgendamentoSalaoRepository;
-import com.univesp.projetoIntegradorI.domain.repository.MoradorRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class MoradorService {
-
-    @Autowired
-    private MoradorRepository moradorRepository;
-
-    @Autowired
-    private AgendamentoSalaoRepository agendamentoSalaoRepository;
-
-    public Morador salvarMorador(Morador morador) {
-        return moradorRepository.save(morador);
-    }
-
-    public void atualizarHorariosPresenca(Long moradorId, String horarios) {
-        Morador morador = moradorRepository.findById(moradorId).orElseThrow(() -> new RuntimeException("Morador não encontrado"));
-        morador.setHorariosPresenca(horarios);
-        moradorRepository.save(morador);
-    }
-
-    public void atualizarObservacoes(Long moradorId, String observacoes) {
-        Morador morador = moradorRepository.findById(moradorId).orElseThrow(() -> new RuntimeException("Morador não encontrado"));
-        morador.setObservacoes(observacoes);
-        moradorRepository.save(morador);
-    }
-
-    public AgendamentoSalao agendarSalao(Long moradorId, LocalDateTime dataHoraInicio, LocalDateTime dataHoraFim, String motivo) {
-        AgendamentoSalao agendamento = new AgendamentoSalao();
-        agendamento.setMoradorId(moradorId);
-        agendamento.setDataHoraInicio(dataHoraInicio);
-        agendamento.setDataHoraFim(dataHoraFim);
-        agendamento.setMotivo(motivo);
-        return agendamentoSalaoRepository.save(agendamento);
-    }
+    private List<Morador> moradores = new ArrayList<>();
 
     public List<Morador> findAll() {
-        return moradorRepository.findAll();
+        return moradores;
     }
 
     public Morador findById(Long id) {
-        return moradorRepository.findById(id).orElseThrow(() -> new RuntimeException("Morador não encontrado"));
+        return moradores.stream().filter(m -> m.getId().equals(id)).findFirst().orElse(null);
     }
 
     public void deleteById(Long id) {
-        moradorRepository.deleteById(id);
+        moradores.removeIf(m -> m.getId().equals(id));
+    }
+
+    public Morador salvarMorador(Morador morador) {
+        String idString = morador.getNumeroCasa() + morador.getTelefone();
+        Long id = Long.valueOf(idString.replaceAll("[^0-9]", ""));
+        if (findById(id) != null) {
+            throw new IllegalArgumentException("ID already exists");
+        }
+        morador.setId(id);
+        moradores.add(morador);
+        return morador;
+    }
+
+    public Morador atualizarMorador(Long id, Morador moradorAtualizado) {
+        Morador moradorExistente = findById(id);
+        if (moradorExistente == null) {
+            throw new IllegalArgumentException("Morador not found");
+        }
+
+        if (!Objects.equals(moradorExistente.getNome(), moradorAtualizado.getNome()) || !Objects.equals(moradorExistente.getEmail(), moradorAtualizado.getEmail())) {
+            String newIdString = moradorAtualizado.getNumeroCasa() + moradorAtualizado.getTelefone();
+            Long newId = Long.valueOf(newIdString.replaceAll("[^0-9]", ""));
+            moradorExistente.setId(newId);
+        }
+
+        moradorExistente.setNome(moradorAtualizado.getNome());
+        moradorExistente.setNumeroCasa(moradorAtualizado.getNumeroCasa());
+        moradorExistente.setTelefone(moradorAtualizado.getTelefone());
+        moradorExistente.setEmail(moradorAtualizado.getEmail());
+        moradorExistente.setHorariosPresenca(moradorAtualizado.getHorariosPresenca());
+        moradorExistente.setObservacoes(moradorAtualizado.getObservacoes());
+
+        return moradorExistente;
+    }
+
+    public Morador buscarPorId(Long id) {
+        return findById(id);
     }
 }

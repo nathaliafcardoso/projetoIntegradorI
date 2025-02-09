@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Agendamento de Salão</title>
+</head>
+<body>
+    <form action="/api/moradores/agendar-salao" method="post">
+        <label for="dataHoraInicio">Data e Hora de Início:</label>
+        <input type="datetime-local" id="dataHoraInicio" name="dataHoraInicio" required>
+
+        <label for="dataHoraFim">Data e Hora de Fim:</label>
+        <input type="datetime-local" id="dataHoraFim" name="dataHoraFim" required>
+
+        <label for="motivo">Motivo do Agendamento:</label>
+        <input type="text" id="motivo" name="motivo" required>
+
+        <button type="submit">Agendar</button>
+    </form>
+</body>
+</html>
