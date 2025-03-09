@@ -1,23 +1,126 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Formulário de Morador</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Morador</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            width: 100%;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin: 0;
+        }
+
+        form {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            text-align: left;
+        }
+
+        label {
+            font-size: 18px;
+            margin-bottom: 8px;
+            display: block;
+            text-align: left;
+        }
+
+        input[type="text"],
+        input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            font-size: 18px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+        }
+    </style>
 </head>
 <body>
-    <form action="/api/moradores/salvar" method="post">
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome" required>
+<header>
+    <h1>Cadastro de Morador</h1>
+</header>
 
-        <label for="numeroCasa">Número da Casa:</label>
-        <input type="text" id="numeroCasa" name="numeroCasa" required>
+<form action="/moradores/moradorForm" method="post" th:object="${morador}">
+    <label for="nome">Nome:</label>
+    <input type="text" id="nome" th:field="*{nome}" required />
 
-        <label for="horariosPresenca">Horários de Presença (Formato JSON ou Texto):</label>
-        <input type="text" id="horariosPresenca" name="horariosPresenca" required>
+    <label for="numeroCasa">Número da Casa:</label>
+    <input type="text" id="numeroCasa" th:field="*{numeroCasa}" required />
 
-        <label for="observacoes">Observações (Quem não deve entrar):</label>
-        <textarea id="observacoes" name="observacoes" required></textarea>
+    <label for="telefone">Telefone:</label>
+    <input type="text" id="telefone" th:field="*{telefone}" required />
 
-        <button type="submit">Salvar</button>
-    </form>
+    <label for="email">E-mail:</label>
+    <input type="email" id="email" th:field="*{email}" />
+
+    <label for="horariosPresenca">Horários de Presença:</label>
+    <input type="text" id="horariosPresenca" th:field="*{horariosPresenca}" />
+
+    <label for="observacoes">Observações:</label>
+    <input type="text" id="observacoes" th:field="*{observacoes}" />
+
+    <button type="submit">Cadastrar</button>
+</form>
+
+<footer>
+    <p>&copy; 2025 Sistema de Gestão de Moradores</p>
+</footer>
 </body>
 </html>

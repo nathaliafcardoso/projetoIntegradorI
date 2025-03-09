@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro Realizado</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f9f9f9;
+      color: #333;
+      padding: 50px;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      display: inline-block;
+    }
+    h1 {
+      color: #4CAF50;
+      font-size: 28px;
+    }
+    p {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+    .button-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    .btn {
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+    .btn-primary {
+      background-color: #4CAF50;
+      color: white;
+    }
+    .btn-primary:hover {
+      background-color: #45a049;
+    }
+    .btn-secondary {
+      background-color: #007BFF;
+      color: white;
+    }
+    .btn-secondary:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>✅ Cadastro realizado com sucesso!</h1>
+  <p>O morador foi cadastrado com sucesso.</p>
+
+  <div class="button-container">
+    <a href="/moradores/moradorForm" class="btn btn-primary">Cadastrar outro morador</a>
+    <a href="/moradores/listarMoradores" class="btn btn-secondary">Ver lista de moradores</a>
+  </div>
+</div>
+
+</body>
+</html>

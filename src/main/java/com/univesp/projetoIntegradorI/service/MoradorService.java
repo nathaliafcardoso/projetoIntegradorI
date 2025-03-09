@@ -1,6 +1,7 @@
 package com.univesp.projetoIntegradorI.service;
 
 import com.univesp.projetoIntegradorI.domain.model.Morador;
+import com.univesp.projetoIntegradorI.domain.repository.MoradorRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -9,7 +10,13 @@ import java.util.Objects;
 
 @Service
 public class MoradorService {
+
+    private final MoradorRepository moradorRepository;
     private List<Morador> moradores = new ArrayList<>();
+
+    public MoradorService(MoradorRepository moradorRepository) {
+        this.moradorRepository = moradorRepository;
+    }
 
     public List<Morador> findAll() {
         return moradores;
@@ -18,6 +25,15 @@ public class MoradorService {
     public Morador findById(Long id) {
         return moradores.stream().filter(m -> m.getId().equals(id)).findFirst().orElse(null);
     }
+
+    public List<Morador> buscarPorNumeroCasa(String numeroCasa) {
+        numeroCasa = numeroCasa.trim();
+        System.out.println("Buscando por número da casa: " + numeroCasa);
+        List<Morador> moradores = moradorRepository.findByNumeroCasaContaining(numeroCasa);
+        System.out.println("Resultados encontrados: " + moradores.size());
+        return moradores;
+    }
+
 
     public void deleteById(Long id) {
         moradores.removeIf(m -> m.getId().equals(id));
@@ -59,4 +75,6 @@ public class MoradorService {
     public Morador buscarPorId(Long id) {
         return findById(id);
     }
+
+
 }
